@@ -1,0 +1,29 @@
+extends layout
+
+block content
+
+	.nav.nav-pills.nav-justified.bg-dark
+		a(href="/").nav-link Home
+		a(href="/mailer").nav-link Mailer
+		a(href="/contact").nav-link Contacts
+		a(href="/login").nav-link Login 
+
+	.alert.alert-success
+		.alert-heading
+			h4 Thank you for submitting your Contact Information
+		div
+			ul
+				li Name: #{data.prefix} #{data.first} #{data.last} 
+				li Address: #{data.street} #{data.city} #{data.zip}
+				if data.byphone =="on"
+					li Phone : #{data.phone}
+				else
+					li Phone : No
+				if data.byemail=="on"
+					li Email : #{data.email}
+				else
+					li Email : No
+				if data.bymail=="on"
+					li Mail : #{data.street} #{data.city} #{data.zip}
+				else
+					li Mail : No 

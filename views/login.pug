@@ -1,0 +1,25 @@
+extends layout
+
+block content
+	
+	.nav.nav-pills.nav-justified.bg-dark
+			a(href="/").nav-link Home
+			a(href="/mailer").nav-link Mailer
+			a(href="/contact").nav-link Contacts
+			a(href="/login").nav-link Login 
+
+	.container
+			.card
+				.card-header
+					h4 Please login
+				form(action="login", method="post").form
+					.form-group
+						label(for="username") Username:
+						input(type="text", name="username")
+						
+					.form-group
+						label(for="password") Password:
+						input(type="password", name="password")
+						
+					.form-group
+						button(type="submit").btn.btn-danger Login		

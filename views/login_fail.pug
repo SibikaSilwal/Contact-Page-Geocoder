@@ -1,0 +1,12 @@
+extends layout
+
+block content
+
+		.nav.nav-pills.nav-justified.bg-dark
+			a(href="/").nav-link Home
+			a(href="/mailer").nav-link Mailer
+			a(href="/contact").nav-link Contacts
+			a(href="/login").nav-link Login 
+		.alert.alert-warning
+			p Login Failed
+			a(href="login")  Please try again!

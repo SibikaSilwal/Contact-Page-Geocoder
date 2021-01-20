@@ -1,0 +1,143 @@
+doctype html5
+html
+	head
+		title Contact Table
+		script(src="https://unpkg.com/axios/dist/axios.min.js")
+		link(rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="")
+		script(src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin="")
+		script(src="https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.js")
+		link(rel='stylesheet' href='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.css')
+		script(src='https://unpkg.com/axios/dist/axios.min.js')
+		script(src='/javascripts/geocoding.js')
+		link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous") 
+		script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous")
+		link(rel='stylesheet', href='/stylesheets/style.css')
+
+	body(onload="createmap()")
+
+		.nav.nav-pills.nav-justified.bg-dark
+			a(href="/").nav-link Home
+			a(href="/mailer").nav-link Mailer
+			a(href="/contact").nav-link Contacts
+			a(href="/login").nav-link Login 
+		
+		button(type="button", onclick="createContact()").btn.btn-success Create New Contact
+
+		.contactpage#contactform
+			.container
+				.row
+					.col.col-md-8
+						.card
+							.card-body
+								.card-title
+									h4 Contact Form
+							
+								form(id="newcontact").form
+									div
+										.form-group
+											input(type="radio", name="prefix", id="mr", value="Mr.")
+											label(for="mr") Mr
+											input(type="radio", name="prefix", id ="mrs", value="Mrs.")
+											label(for="mrs") Mrs
+											input(type="radio", name="prefix", id ="ms", value="Ms.")
+											label(for="ms") Ms
+											input(type="radio", name="prefix", id ="dr", value="Dr.")
+											label(for="dr") Dr
+										
+										.form-group
+											label(for="fname") First name:
+											input(type="text", name="first", id = "First Name", value ="")
+											label(for="lname") Last name:
+											input(type="text", name="last", id ="Last Name", value="")
+										
+										.form-group
+											label(for="street") Street:
+											input(type="text", name="street", id="street", value="")
+											br
+											label(for="city") City:
+											br
+											input(type="text", name="city", id="city", value="") 
+										.form-group
+											label(for="state") State:
+											select(name ="state", id="state")
+												option(value="" selected) ---
+												option( value="NY") NY 
+												option(value="NJ")  NJ 
+												option(value="PA") PA
+												option(value="CT") CT 
+											br
+											label(for="zip") Zip Code:
+											input( type="text", name="zip", id="zip", value="")
+										.form-group
+											label(for="phone") Phone:
+											input(type="tel", name="phone", id="phone")
+										.form-group
+											label(for="email") Email:
+											input( type="email", name="email", id="email", value="")
+										.form-group
+											label(for="contact medium") Contact medium. Please check all that applies
+											br
+											input( type ="checkbox", name="byemail", id="email", value="on")
+											label(for="email") Email
+											
+											input(type ="checkbox", name="byphone", id="phone", value="on") 
+											label( for="phone") Phone
+											
+											input( type ="checkbox", name="bymail", id="mail", value="on")
+											label( for="mail") Mail
+										.form-group
+											button.btn.btn-danger( type="button",onclick="addnew()" id="Submit") Send me Span Forever! 
+
+
+		#contacttable
+			.container
+				.row
+					.col.col-6
+						h4 Contact Information Table
+					.col.col-6
+						input(type="text", id="myInput", onkeyup="searchname()", placeholder="Search for names..").form-group
+			table(id="infotable").table
+				thead.thead-light
+					tr
+						th.col Prefix
+						th.col Name
+						th.col Street
+						th.col City
+						th.col State
+						th.col Zip Code
+						th.col Phone
+						th.col Email
+						th.col Latitute
+						th.col Longitude
+						th.col Update Contact
+						th.col Delete Contact
+
+					each contact in contacts
+						-var id = contact._id
+						tr(data-lat=contact.lat, data-lng=contact.lng, class="inforow", id=contact._id)
+							
+							td #{contact.prefix}
+							td #{contact.first} #{contact.last}
+							td #{contact.street}
+							td #{contact.city}
+							td #{contact.state}
+							td #{contact.zip}
+							td #{contact.phone}
+							td #{contact.email}
+							td #{contact.lat}
+							td #{contact.lng}
+							td
+								form(action="updatecontact", method="post")
+									input(type="text", name="cid", value = contact._id, id="cid", hidden=true)
+									label(for="cid", hidden=true) ID;
+									button.btn.btn-info(type="submit") Update									
+							td
+								button(type="button", onclick='deleteRow("'+ contact._id +'")').btn.btn-danger Delete
+							td(hidden=true) #{contact._id}
+
+		
+		#mapid
+			
+
+
+

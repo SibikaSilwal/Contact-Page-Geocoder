@@ -1,0 +1,83 @@
+extends layout
+
+block content
+
+	.nav.nav-pills.nav-justified.bg-dark
+		a(href="/").nav-link Home
+		a(href="/mailer").nav-link Mailer
+		a(href="/contact").nav-link Contacts
+		a(href="/login").nav-link Login 
+
+
+	.container
+		.row
+			.col.col-md-8
+				.card
+					.card-header
+						h4 Contact Form
+					.card-body
+						form(action="mailer", method="post").form
+							div
+								.form-group
+									input(type="radio", name="prefix", id="mr", value="Mr.")
+									label(for="mr") Mr
+									input(type="radio", name="prefix", id ="ms", value="Ms.")
+									label(for="mrs") Mrs
+									input(type="radio", name="prefix", id ="ms", value="Ms.")
+									label(for="ms") Ms
+									input(type="radio", name="prefix", id ="dr", value="Dr.")
+									label(for="dr") Dr
+								
+								.form-group
+									label(for="fname") First name:
+									input(type="text", name="first", id = "First Name", value ="")
+									label(for="lname") Last name:
+									input(type="text", name="last", id ="Last Name", value="")
+								
+								.form-group
+									label(for="street") Street:
+									input(type="text", name="street", id="street", value="")
+									br
+									label(for="city") City:
+									br
+									input(type="text", name="city", id="city", value="") 
+								.form-group
+									label(for="state") State:
+									select(name ="state", id="state")
+										option(value="" selected) ---
+										option( value="NY") NY 
+										option(value="NJ")  NJ 
+										option(value="PA") PA
+										option(value="CT") CT 
+									br
+									label(for="zip") Zip Code:
+									input( type="text", name="zip", id="zip", value="")
+								.form-group
+									label(for="phone") Phone:
+									input(type="tel", name="phone", id="phone")
+								.form-group
+									label(for="email") Email:
+									input( type="email", name="email", id="email", value="")
+								.form-group
+									label(for="contact medium") Contact medium. Please check all that applies
+									br
+									input( type ="checkbox", name="byemail", id="email", value="on")
+									label(for="email") Email
+									
+									input(type ="checkbox", name="byphone", id="phone", value="on") 
+									label( for="phone") Phone
+									
+									input( type ="checkbox", name="bymail", id="mail", value="on")
+									label( for="mail") Mail
+								.form-group
+									button.btn.btn-danger( type="submit", name="Submit", id="Submit") Send me Span Forever! 
+			.col.col-4.d-none.d-md-block
+				.alert.alert-info
+					p  Please submit your contact information on the form.
+
+				 
+
+
+
+
+				
